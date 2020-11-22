@@ -37,11 +37,11 @@ NewData=space_data[,-c(1)]
 head(NewData)
 
 tsne_out <- Rtsne(as.matrix(select(space_data)),
-		  pca =    ,
-		  theta = ,
-		  verbose =  ,
-		  max_id=  ,
-		  Y_ither =  ,)
+		  pca = FALSE ,
+		  theta = 0.35 ,
+		  verbose = TRUE ,
+		  max_iter = 2500 ,
+		  Y_init = NULL ,)
 
 # Data modeling #
 
