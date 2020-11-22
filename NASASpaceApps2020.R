@@ -7,7 +7,8 @@
 library(ranger)
 library(caret)
 library(data.table)
-library(t-SNE)
+library(CRAN)
+library(Rtsne)
 space_data <- read("https://heasarc.gsfc.nasa.gov/FTP/nicer/data/obs/2018_01/105002018[01]")
 
 # Data exploration / cleaning #
@@ -35,11 +36,13 @@ space_data$Amount=scale(space_data$Amount)
 NewData=space_data[,-c(1)]
 head(NewData)
 
-Rtsneout <- Rtsne(as.matrix(select(space_data)),
-		  betha = ,
-		  vbose =  ,
-		  max_id =  ,
-		            ,)
+tsne_out <- Rtsne(as.matrix(select(space_data)),
+		  pca =    ,
+		  theta = ,
+		  verbose =  ,
+		  max_id=  ,
+		  Y_ither =  ,)
+
 # Data modeling #
 
 library(caTools)
