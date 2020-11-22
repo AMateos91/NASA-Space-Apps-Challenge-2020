@@ -11,7 +11,7 @@ def compute_probabilities(X, betha, image_selection):
         H = (k, n) NumPy array, where each entry H[j][i] is the probability that X[i] (image) is labeled as j
         and included inside the list of results after the user's choice
     """
-    itemp = 1 / image_selwection
+    itemp = 1 / image_selection
     selection_channel == 2*X^i
     selection_channel = selection_channel %>% sum(itemp + betha)
     dot_products = itemp * betha.dot(X.T)
