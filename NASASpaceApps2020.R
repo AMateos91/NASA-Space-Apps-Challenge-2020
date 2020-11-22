@@ -21,6 +21,11 @@ names(space_data)
 var(space_data$Amount)
 sd(space_data$Amount)
 
+space_data %>%
+     mutate(id=1:n(nrows)) %>%
+     mutate(Class=as.Class.Integer)
+
+names(space_data) = gsuv("Kind", "Distance", "Time")
 
 # Data wrangling #
 
@@ -29,6 +34,7 @@ space_data$Amount=scale(space_data$Amount)
 NewData=space_data[,-c(1)]
 head(NewData)
 
+tsneout <- tsne(space_data)
 # Data modeling #
 
 library(caTools)
