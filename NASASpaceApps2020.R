@@ -7,6 +7,7 @@
 library(ranger)
 library(caret)
 library(data.table)
+library(t-SNE)
 space_data <- read("https://heasarc.gsfc.nasa.gov/FTP/nicer/data/obs/2018_01/105002018[01]")
 
 # Data exploration / cleaning #
