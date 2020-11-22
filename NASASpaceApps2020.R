@@ -24,7 +24,7 @@ var(space_data$Amount)
 sd(space_data$Amount)
 
 space_data %>%
-     mutate(id=1:n(nrows)) %>%
+     mutate(id=1:n(nrows)),
      mutate(Class=as.Class.Integer)
 
 names(space_data) = gsuv("Kind", "Distance", "Time")
