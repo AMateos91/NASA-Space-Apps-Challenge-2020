@@ -4,11 +4,12 @@ def compute_probabilities(X, betha, image_selection):
     for j = 0, 1, ..., k-1
 
     Args:
-        X - (n, d) NumPy array (n datapoints each with d features)
-        theta - (k, d) NumPy array, where row j represents the parameters of our model for label j
-        temp_parameter - the temperature parameter of softmax function (scalar)
+        X = (n, d) NumPy array (n datapoints within the datasets from Agencies each with d features)
+        betha = (k, d) NumPy array, where row j represents the parameters of our model for label j
+        image_selection = the temperature parameter of softmax function (scalar)
     Returns:
-        H - (k, n) NumPy array, where each entry H[j][i] is the probability that X[i] is labeled as j
+        H = (k, n) NumPy array, where each entry H[j][i] is the probability that X[i] (image) is labeled as j
+        and included inside the list of results after the user's choice
     """
     itemp = 1 / image_selwection
     selection_channel == 2*X^i
