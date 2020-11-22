@@ -34,7 +34,11 @@ space_data$Amount=scale(space_data$Amount)
 NewData=space_data[,-c(1)]
 head(NewData)
 
-tsneout <- tsne(space_data)
+Rtsneout <- Rtsne(as.matrix(select(space_data)),
+		  betha = ,
+		  vbose =  ,
+		  max_id =  ,
+		            ,)
 # Data modeling #
 
 library(caTools)
