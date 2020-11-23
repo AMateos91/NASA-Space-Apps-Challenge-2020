@@ -9,7 +9,10 @@ library(caret)
 library(data.table)
 library(CRAN)
 library(Rtsne)
-space_data <- read("https://heasarc.gsfc.nasa.gov/FTP/nicer/data/obs/2018_01/105002018[01]")
+url<- "https://heasarc.gsfc.nasa.gov/FTP/nicer/data/obs/2018_01/*/auxil/ni*.att.gz"
+download.file(url, destfile="heasarcfiles.gz", mod="wb")
+spacedata<-read.gz("heasarcfiles.gz", sheetIndex=1)
+head(spacedata)
 
 # Data exploration / cleaning #
 
