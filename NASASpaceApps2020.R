@@ -14,7 +14,7 @@ library(pROC)
 library(rpart)
 library(rpart.plot)
 url<- "https://heasarc.gsfc.nasa.gov/FTP/nicer/data/obs/2018_01/*/auxil/ni*.csv"
-spacedata<-read.gz(url)
+spacedata<-read.csv(url)
 head(spacedata)
 
 # Data exploration / cleaning #
