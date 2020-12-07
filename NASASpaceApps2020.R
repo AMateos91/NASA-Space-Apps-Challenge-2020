@@ -9,9 +9,12 @@ library(caret)
 library(data.table)
 library(CRAN)
 library(Rtsne)
-url<- "https://heasarc.gsfc.nasa.gov/FTP/nicer/data/obs/2018_01/*/auxil/ni*.att.gz"
-download.file(url, destfile="heasarcfiles.gz", mod="wb")
-spacedata<-read.gz("heasarcfiles.gz", sheetIndex=1)
+library(caTools)
+library(pROC)
+library(rpart)
+library(rpart.plot)
+url<- "https://heasarc.gsfc.nasa.gov/FTP/nicer/data/obs/2018_01/*/auxil/ni*.csv"
+spacedata<-read.gz(url)
 head(spacedata)
 
 # Data exploration / cleaning #
@@ -48,7 +51,6 @@ tsne_out <- Rtsne(as.matrix(select(space_data)),
 
 # Data modeling #
 
-library(caTools)
 set.seed(123)
 data_sample = sample.split(NewData$Class,SplitRatio=0.80)
 train_data = subset(NewData,data_sample==TRUE)
@@ -61,14 +63,11 @@ dim(test_data)
 Logistic_Model= glm(Class~.,test_data,family=binomial())
 summary(Logistic_Model)
 plot(Logistic_Model)
-library(pROC)
 lr.predict <- predict(Logistic_Model,train_data, probability = TRUE)
-auc.gbm = roc(test_data$Class, lr.predict, plot = TRUE, col = "blue")
+auc.gbm = roc(test_data$Class, lr.predict, plot = TRUE, color = "blue")
 
 # Decision Tree model #
 
-library(rpart)
-library(rpart.plot)
 decisionTree_model <- rpart(Class ~ . , space_data, method = 'class')
 predicted_val <- predict(decisionTree_model, space_data, type = 'class')
 probability <- predict(decisionTree_model, space_data, type = 'prob')
@@ -77,7 +76,7 @@ rpart.plot(decisionTree_model)
 # Artificial Neural Network #
 
 library(neuralnet)
-ABE_model =neuralnet (Class~.,train_data,linear.output=FALSE)
+ABE_model =neuralnet(Class~.,train_data,linear.output=FALSE)
 plot(ABE_model)
 	
 predABE=compute(ABE_model,test_data)
@@ -91,7 +90,7 @@ library(gbm, quietly=TRUE)
 # Get the time to train the GBM model
 
 system.time(
-  model_gbm <- gbm(Class ~ .
+  model_gbm <- gbm(Class~.
                       , distribution = "bernoulli"
                       , data = rbind(train_data, test_data)
                       , n.trees = 500
@@ -105,7 +104,7 @@ system.time(
 # Determine best iteration based on test data #
 
 gbm.iter = gbm.perf(model_gbm, method = "test")
-model.influence = relative.influence(model_gbm, n.trees = gbm.iter, sort. = TRUE)
+model.influence = relative.influence(model_gbm, n.trees = gbm.iter, sort = TRUE)
 
 #Plot the gbm model #
 
@@ -114,7 +113,7 @@ plot(model_gbm)
 # Plot and calculate AUC on test data
 
 gbm_test = predict(model_gbm, newdata = test_data, n.trees = gbm.iter)
-gbm_auc = roc(test_data$Class, gbm_test, plot = TRUE, col = "red")
+gbm_auc = roc(test_data$Class, gbm_test, plot = TRUE, color = "green")
 print(gbm_auc)
 
 
