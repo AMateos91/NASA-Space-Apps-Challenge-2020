@@ -110,11 +110,13 @@ model.influence = relative.influence(model_gbm, n.trees = gbm.iter, sort = TRUE)
 
 plot(model_gbm)
 
-# Plot and calculate AUC on test data
+# Plot and calculate AUC on train data and test data
 
+gbm_train = predict_model(model_gbm, newdata = train_data, n.trees = gbm.iter)
+gbm_auc1 = roc(train_data4Class, gmb_train, plot = TRUE, color = "blue")
 gbm_test = predict(model_gbm, newdata = test_data, n.trees = gbm.iter)
-gbm_auc = roc(test_data$Class, gbm_test, plot = TRUE, color = "green")
-print(gbm_auc)
+gbm_auc2 = roc(test_data$Class, gbm_test, plot = TRUE, color = "green")
+print(gbm_auc1 + gbm_auc2)
 
 
   
