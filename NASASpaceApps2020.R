@@ -27,7 +27,6 @@ table(space_data$Class)
 summary(space_data$Amount)
 names(space_data)
 var(space_data$Amount)
-sd(space_data$Amount)
 
 space_data %>%
      mutate(id=1:n(nrows)),
@@ -71,7 +70,7 @@ auc.gbm = roc(test_data$Class, lr.predict, plot = TRUE, color = "blue")
 decisionTree_model <- rpart(Class ~ . , space_data, method = 'class')
 predicted_val <- predict(decisionTree_model, space_data, type = 'class')
 probability <- predict(decisionTree_model, space_data, type = 'prob')
-rpart.plot(decisionTree_model)
+rpart.plot(decisionTree_model + probability)
 
 # Artificial Neural Network #
 
